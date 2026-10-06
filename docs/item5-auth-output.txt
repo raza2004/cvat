@@ -1,0 +1,32 @@
+$ curl -i http://localhost:8080/api/test/label-counts/1   (no credentials)
+HTTP/1.1 401 Unauthorized
+Allow: GET, HEAD, OPTIONS
+Content-Length: 58
+Content-Type: application/vnd.cvat+json
+Cross-Origin-Opener-Policy: same-origin
+Date: Tue, 06 Oct 2026 17:43:53 GMT
+Referrer-Policy: strict-origin-when-cross-origin
+Server: nginx
+Vary: Accept, Origin, Cookie
+Www-Authenticate: Token
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-Request-Id: ff93ebb8-14be-457d-b94f-1bb194b2d1bb
+
+{"detail":"Authentication credentials were not provided."}
+
+$ curl -i -u normaluser2:*** http://localhost:8080/api/test/label-counts/1   (second normal user)
+HTTP/1.1 403 Forbidden
+Allow: GET, HEAD, OPTIONS
+Content-Length: 63
+Content-Type: application/vnd.cvat+json
+Cross-Origin-Opener-Policy: same-origin
+Date: Tue, 06 Oct 2026 17:43:55 GMT
+Referrer-Policy: strict-origin-when-cross-origin
+Server: nginx
+Vary: Accept, Origin, Cookie
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-Request-Id: d1ba3651-793e-4004-a21b-11c7008b7738
+
+{"detail":"You do not have permission to perform this action."}
