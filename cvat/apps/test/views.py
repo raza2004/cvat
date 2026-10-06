@@ -14,6 +14,7 @@ from cvat.apps.engine.permissions import TaskPermission
 
 class LabelCountsViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Task.objects.all()
+    filter_backends = []
     iam_permission_class = TaskPermission
     iam_supports_organization_params = True
 
