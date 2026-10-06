@@ -60,6 +60,7 @@ import AnnotationGuidePage from 'components/md-guide/annotation-guide-page';
 import InvitationsPage from 'components/invitations-page/invitations-page';
 
 import RequestsPage from 'components/requests-page/requests-page';
+import LabelCountsPage from 'components/label-counts-page/label-counts-page';
 
 import AnnotationPageContainer from 'containers/annotation-page/annotation-page';
 import { Organization, getCore, UserGrowthDataModifiableFields } from 'cvat-core-wrapper';
@@ -569,6 +570,7 @@ class CVATApplication extends React.PureComponent<CVATAppProps & RouteComponentP
                                         <Route exact path='/tasks/:tid/quality-control' component={QualityControlPage} />
                                         <Route exact path='/tasks/:tid/analytics' component={AnalyticsReportPage} />
                                         <Route exact path='/tasks/:tid/consensus' component={ConsensusManagementPage} />
+                                        <Route exact path='/tasks/:tid/label-counts' component={LabelCountsPage} />
                                         <Route exact path='/tasks/:id/jobs/create' component={CreateJobPage} />
                                         <Route exact path='/tasks/:id/guide' component={AnnotationGuidePage} />
                                         <Route exact path='/tasks/:tid/jobs/:jid' component={AnnotationPageContainer} />
