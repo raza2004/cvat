@@ -4,6 +4,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import Button from 'antd/lib/button';
+import Empty from 'antd/lib/empty';
 import Result from 'antd/lib/result';
 import {
     Chart, CategoryScale, LinearScale, BarElement, Tooltip,
@@ -27,19 +29,35 @@ function LabelCountsPage(): JSX.Element {
     const { tid } = useParams<{ tid: string }>();
     const [counts, setCounts] = useState<LabelCount[] | null>(null);
     const [error, setError] = useState<Error | null>(null);
+    const [attempt, setAttempt] = useState(0);
 
     useEffect(() => {
         core.server.request(`${core.config.backendAPI}/test/label-counts/${tid}`, { method: 'GET' })
             .then((response: { data: LabelCount[] }) => setCounts(response.data))
             .catch(setError);
-    }, [tid]);
+    }, [tid, attempt]);
 
     if (error) {
-        return <Result status='error' title={error.message} />;
+        const retry = (): void => {
+            setError(null);
+            setAttempt((value) => value + 1);
+        };
+
+        return (
+            <Result
+                status='error'
+                title={error.message}
+                extra={<Button type='primary' onClick={retry}>Retry</Button>}
+            />
+        );
     }
 
     if (counts === null) {
         return <CVATLoadingSpinner />;
+    }
+
+    if (counts.every((item) => item.count === 0)) {
+        return <Empty description='No annotations in this task' />;
     }
 
     return (
